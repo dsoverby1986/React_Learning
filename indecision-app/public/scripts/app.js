@@ -31,9 +31,7 @@ var IndecisionApp = function (_React$Component) {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
-                return {
-                    options: []
-                };
+                return { options: [] };
             });
         }
     }, {
@@ -47,9 +45,7 @@ var IndecisionApp = function (_React$Component) {
             if (!option) return 'Enter a valid value to add item';else if (this.state.options.indexOf(option) > -1) return 'This option already exists';
 
             this.setState(function (prevState) {
-                return {
-                    options: prevState.options.concat(option)
-                };
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
