@@ -12,6 +12,29 @@ class IndecisionApp extends React.Component {
         };
     }
 
+    // lifecycle methods - only available in class based components (another reason why stateless functional components are so performant: less overhead)
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json);
+            if(options)
+                this.setState(() => ({ options }));
+        } catch(e) {
+            // Do nothing at all
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.options.length !== prevState.options.length) {
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+        }
+    }
+
+    componentWillUnmount() {
+        console.log('component will unmount');
+    }
+
     handleDeleteOptions() {
         this.setState(() => ({ options: [] }));
     }
@@ -86,6 +109,7 @@ const Options = (props) => {
             <button 
                 className="btn btn-danger"
                 onClick={props.handleDeleteOptions}>Remove All</button>
+                {props.options.length === 0 && <h4>Please add an option to get started!</h4>}
             {
                 props.options.map((option) => (
                 <Option 
