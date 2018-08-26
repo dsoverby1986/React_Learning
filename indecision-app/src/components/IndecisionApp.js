@@ -5,16 +5,9 @@ import Options from './Options';
 import AddOption from './AddOption';
 
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.handlePickOption = this.handlePickOption.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.state = {
-            options: []
-        };
-    }
+    state = {
+        options: []
+    };
 
     // lifecycle methods - only available in class based components (another reason why stateless functional components are so performant: less overhead)
     componentDidMount() {
@@ -39,19 +32,19 @@ export default class IndecisionApp extends React.Component {
         console.log('component will unmount');
     }
 
-    handleDeleteOptions() {
+    handleDeleteOptions = () => {
         this.setState(() => ({ options: [] }));
     }
 
-    handleDeleteOption(option) {
+    handleDeleteOption = (option) => {
         this.setState((prevState) =>({ options: prevState.options.filter((o) => o !== option )}));
     }
 
-    handlePickOption() {
+    handlePickOption = () => {
         alert(this.state.options[Math.floor(Math.random() * this.state.options.length)]);
     }
 
-    handleAddOption(option) {
+    handleAddOption = (option) => {
         if(!option)
             return 'Enter a valid value to add item';
         else if (this.state.options.indexOf(option) > -1)
