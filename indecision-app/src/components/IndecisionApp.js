@@ -3,11 +3,42 @@ import Header from './Header';
 import Action from './Action';
 import Options from './Options';
 import AddOption from './AddOption';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     };
+
+    handleDeleteOptions = () => {
+        this.setState(() => ({ options: [] }));
+    };
+
+    handleDeleteOption = (option) => {
+        this.setState((prevState) =>({ options: prevState.options.filter((o) => o !== option )}));
+    };
+
+    handlePickOption = () => {
+        this.setState({
+            selectedOption: this.state.options[Math.floor(Math.random() * this.state.options.length)]
+        });
+    };
+
+    handleAddOption = (option) => {
+        if(!option)
+            return 'Enter a valid value to add item';
+        else if (this.state.options.indexOf(option) > -1)
+            return 'This option already exists';
+
+        this.setState((prevState) => ({ options: prevState.options.concat(option) }));
+    };
+
+    handleClearSelectedOption = () => {
+        this.setState({
+            selectedOption: undefined
+        });
+    ;}
 
     // lifecycle methods - only available in class based components (another reason why stateless functional components are so performant: less overhead)
     componentDidMount() {
@@ -32,27 +63,6 @@ export default class IndecisionApp extends React.Component {
         console.log('component will unmount');
     }
 
-    handleDeleteOptions = () => {
-        this.setState(() => ({ options: [] }));
-    }
-
-    handleDeleteOption = (option) => {
-        this.setState((prevState) =>({ options: prevState.options.filter((o) => o !== option )}));
-    }
-
-    handlePickOption = () => {
-        alert(this.state.options[Math.floor(Math.random() * this.state.options.length)]);
-    }
-
-    handleAddOption = (option) => {
-        if(!option)
-            return 'Enter a valid value to add item';
-        else if (this.state.options.indexOf(option) > -1)
-            return 'This option already exists';
-
-        this.setState((prevState) => ({ options: prevState.options.concat(option) }));
-    }
-
     render() {
         const subtitle = 'Put your life in the hands of a computer!';
 
@@ -67,6 +77,9 @@ export default class IndecisionApp extends React.Component {
                     handleDeleteOptions={this.handleDeleteOptions}
                     handleDeleteOption={this.handleDeleteOption} />
                 <AddOption handleAddOption={this.handleAddOption} />
+                <OptionModal 
+                    selectedOption={this.state.selectedOption}
+                    handleClearSelectedOption={this.handleClearSelectedOption} />
             </div>
         );
     }
