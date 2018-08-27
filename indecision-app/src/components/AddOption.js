@@ -18,15 +18,11 @@ export default class AddOption extends React.Component {
         return (
             <div>
                 { this.state.error &&
-                    <div className="alert alert-danger">{this.state.error}</div>
+                    <div>{this.state.error}</div>
                 }
                 <form onSubmit={this.handleAddOption}>
-                    <div className="input-group">
-                        <input type="text" className="form-control" name="option" autoFocus />
-                        <span className="input-group-btn">
-                            <button className="btn btn-success">Add option</button>
-                        </span>
-                    </div>
+                    <input type="text" name="option" autoFocus />
+                    <button>Add option</button>
                 </form>
             </div>
         );
