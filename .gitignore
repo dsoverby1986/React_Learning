@@ -1,2 +1,4 @@
+boilerplate-v1/node_modules/*
+expensify-app/node_modules/*
 indecision-app/node_modules/*
 yarn.lock
