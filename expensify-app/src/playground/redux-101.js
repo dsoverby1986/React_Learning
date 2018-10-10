@@ -21,7 +21,11 @@ const setCount = ({ count } = {}) => ({
     count
 });
 
-const store = createStore((state = { count: 0 }, action) => {
+// reducers
+// 1. Reducers are pure functions (doesn't use or change anything outside of the function scope)
+// 2. Never change state or action (just return object representing the new state)
+
+const countReducer = (state = { count: 0 }, action) => {
     switch(action.type){
         case 'INCREMENT':
             return {
@@ -42,7 +46,9 @@ const store = createStore((state = { count: 0 }, action) => {
         default:
             return state;
     }
-});
+};
+
+const store = createStore(countReducer);
 
 // store.subscribe() gets called anytime the state managed by the redux store changes and returns a function that can be invoked to unsubscribe from the store's state changes ----- see unsubscribe use below...
 const unsubscribe = store.subscribe(() => {
