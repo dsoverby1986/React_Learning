@@ -16,7 +16,7 @@ const resetCount = () => ({
     type: 'RESET'
 });
 
-const setCount = (newCount) => ({
+const setCount = ({ newCount = 10 } = {}) => ({
     type: 'SET',
     newCount
 });
@@ -37,7 +37,7 @@ const store = createStore((state = { count: 0 }, action) => {
             };
         case 'SET':
             return {
-                count: action.count
+                count: action.newCount
             };
         default:
             return state;
@@ -71,6 +71,8 @@ store.dispatch(resetCount());
 // I'd like to decrement the count
 store.dispatch(decrementCount());
 
-store.dispatch(decrementCount(10));
+store.dispatch(decrementCount({ decrementBy: 10 }));
 
-store.dispatch(setCount(101));
+store.dispatch(setCount({ newCount: 101 }));
+
+store.dispatch(setCount());
