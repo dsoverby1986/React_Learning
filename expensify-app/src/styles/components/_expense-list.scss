@@ -1,0 +1,17 @@
+body {
+    padding-left: 25px;
+}
+
+.table-bordered {
+    border-collapse: collapse;
+    border: 1px solid #bbb;
+}
+
+.table-bordered th:not(:last-child),
+.table-bordered td:not(:last-child) {
+    border-right: 1px solid #bbb;
+}
+
+.table-bordered tr {
+    border-bottom: 1px solid #bbb;
+}

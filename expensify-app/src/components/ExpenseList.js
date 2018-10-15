@@ -6,7 +6,7 @@ import selectExpenses from '../selectors/expenses';
 const ExpenseList = (props) => (
     <div>
         <h1>Expense List</h1>
-        <table>
+        <table className="table-bordered">
             <thead>
                 <tr>
                     <th colSpan="3" align="left">Expenses - { props.expenses.length }</th>
