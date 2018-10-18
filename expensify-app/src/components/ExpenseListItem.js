@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { removeExpense } from '../actions/expenses';
 
 const months = {
     0: "January",
@@ -15,16 +17,25 @@ const months = {
     11: "December"
 };
 
-export default ({ description = '', amount, createdAt }) => {
+export default connect()(({ dispatch, id, description, amount, createdAt }) => {
     const date = new Date(createdAt);
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
     return (
         <tr>
-            <td>{ description }</td>
-            <td>{ amount }</td>
-            <td>{ `${months[month]} ${day}, ${year}` }</td>
+            <td>
+                { description }
+            </td>
+            <td>
+                { amount }
+            </td>
+            <td>
+                { `${months[month]} ${day}, ${year}` }
+            </td>
+            <td>
+                <button onClick={() => { dispatch(removeExpense({ id }))}}>Remove</button>
+            </td>
         </tr>
     );
-};
+});

@@ -9,12 +9,13 @@ const ExpenseList = (props) => (
         <table className="table-bordered">
             <thead>
                 <tr>
-                    <th colSpan="3" align="left">Expenses - { props.expenses.length }</th>
+                    <th colSpan="4" align="left">Expenses - { props.expenses.length }</th>
                 </tr>
                 <tr>
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
