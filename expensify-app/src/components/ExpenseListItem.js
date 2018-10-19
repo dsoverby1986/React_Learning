@@ -28,7 +28,7 @@ export default connect()(({ dispatch, id, description, amount, createdAt }) => {
                 { description }
             </td>
             <td>
-                { amount }
+                { `$${(amount / 100).toFixed(2)}` }
             </td>
             <td>
                 { `${months[month]} ${day}, ${year}` }
