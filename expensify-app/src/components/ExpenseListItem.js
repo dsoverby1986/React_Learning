@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeExpense } from '../actions/expenses';
+import { Link } from 'react-router-dom';
 
 const months = {
     0: "January",
@@ -17,7 +18,7 @@ const months = {
     11: "December"
 };
 
-export default connect()(({ dispatch, id, description, amount, createdAt }) => {
+export default ({ id, description, amount, createdAt, note }) => {
     const date = new Date(createdAt);
     const day = date.getDate();
     const month = date.getMonth();
@@ -25,7 +26,7 @@ export default connect()(({ dispatch, id, description, amount, createdAt }) => {
     return (
         <tr>
             <td>
-                { description }
+                <Link to={`/edit/${id}`}>{ description }</Link>
             </td>
             <td>
                 { `$${(amount / 100).toFixed(2)}` }
@@ -34,8 +35,8 @@ export default connect()(({ dispatch, id, description, amount, createdAt }) => {
                 { `${months[month]} ${day}, ${year}` }
             </td>
             <td>
-                <button onClick={() => { dispatch(removeExpense({ id }))}}>Remove</button>
+                { note || 'N/A' }
             </td>
         </tr>
     );
-});
+};

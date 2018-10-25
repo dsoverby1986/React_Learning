@@ -8,14 +8,17 @@ const now = moment();
 console.log(now.format('MMM. Do, YYYY'));
 
 export default class ExpenseForm extends React.Component {
-    state = {
-        description: '',
-        note: '',
-        amount: '',
-        createdAt: moment(),
-        calendarFocused: false,
-        error: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            description: props.expense ? props.expense.description : '',
+            note: props.expense ? props.expense.note : '',
+            amount: props.expense ? (props.expense.amount / 100).toString() : '',
+            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+            calendarFocused: false,
+            error: ''
+        }
+    }
     onDescriptionChange = (e) => {
         const description = e.target.value;
         this.setState(() => ({ description }));
@@ -57,34 +60,44 @@ export default class ExpenseForm extends React.Component {
             <div>
                 {this.state.error && <div className="error">{this.state.error}</div>}
                 <form onSubmit={this.onSubmit}>
-                    <input 
-                        type="text"
-                        placeholder="Description"
-                        autoFocus
-                        value={this.state.description}
-                        onChange={this.onDescriptionChange}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Amount"
-                        value={this.state.amount}
-                        onChange={this.onAmountChange}
-                    />
-                    <SingleDatePicker
-                        date={this.state.createdAt}
-                        onDateChange={this.onDateChange}
-                        focused={this.state.calendarFocused}
-                        onFocusChange={this.onFocusChange}
-                        numberOfMonths={1}
-                        isOutsideRange={() => false}
-                    />
-                    <textarea
-                        placeholder="Add a note for your expense (optional)"
-                        value={this.state.note}
-                        onChange={this.onNoteChange}
-                    >
-                    </textarea>
-                    <button>Add Expense</button>
+                    <div>
+                        <input 
+                            type="text"
+                            placeholder="Description"
+                            autoFocus
+                            value={this.state.description}
+                            onChange={this.onDescriptionChange}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Amount"
+                            value={this.state.amount}
+                            onChange={this.onAmountChange}
+                        />
+                    </div>
+                    <div>
+                        <SingleDatePicker
+                            date={this.state.createdAt}
+                            onDateChange={this.onDateChange}
+                            focused={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChange}
+                            numberOfMonths={1}
+                            isOutsideRange={() => false}
+                        />
+                    </div>
+                    <div>
+                        <textarea
+                            placeholder="Add a note for your expense (optional)"
+                            value={this.state.note}
+                            onChange={this.onNoteChange}
+                        >
+                        </textarea>
+                    </div>
+                    <div>
+                        <button>{this.props.expense ? 'Update Expense' : 'Add Expense'}</button>
+                    </div>
                 </form>
             </div>
         )
